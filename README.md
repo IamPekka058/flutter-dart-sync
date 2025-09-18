@@ -6,21 +6,26 @@
 [![CodeQL](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
-> [!NOTE]
-> The current version of this action only supports pinning the exact Dart SDK version (e.g., `sdk: 3.1.0`). It does not yet support version ranges (e.g., `sdk: '>=3.1.0 <4.0.0'`).
+> [!NOTE] The current version of this action only supports pinning the exact
+> Dart SDK version (e.g., `sdk: 3.1.0`). It does not yet support version ranges
+> (e.g., `sdk: '>=3.1.0 <4.0.0'`).
 
-**flutter-dart-sync** is a GitHub Action that automatically updates the Dart SDK version in your `pubspec.yaml` to match the Dart version bundled with the installed Flutter SDK. This ensures that your project's Dart SDK constraint is always in sync with the Flutter version used in your CI environment.
+**flutter-dart-sync** is a GitHub Action that automatically updates the Dart SDK
+version in your `pubspec.yaml` to match the Dart version bundled with the
+installed Flutter SDK. This ensures that your project's Dart SDK constraint is
+always in sync with the Flutter version used in your CI environment.
 
 ## Inputs
 
-| Name                            | Description                                                              | Required | Default          |
-| ------------------------------- | ------------------------------------------------------------------------ | -------- | ---------------- |
-| `pubspec_path`                  | Path to the `pubspec.yaml` file.                                         | `true`   | `./pubspec.yaml` |
-| `fail_if_flutter_not_installed` | Whether to fail the action if the Flutter SDK is not installed.          | `false`  | `false`          |
+| Name                            | Description                                                     | Required | Default          |
+| ------------------------------- | --------------------------------------------------------------- | -------- | ---------------- |
+| `pubspec_path`                  | Path to the `pubspec.yaml` file.                                | `true`   | `./pubspec.yaml` |
+| `fail_if_flutter_not_installed` | Whether to fail the action if the Flutter SDK is not installed. | `false`  | `false`          |
 
 ## Usage
 
-To use this action in your workflow, add the following step. It's recommended to place it after you have checked out your code and set up the Flutter SDK.
+To use this action in your workflow, add the following step. It's recommended to
+place it after you have checked out your code and set up the Flutter SDK.
 
 ```yaml
 name: CI
@@ -58,4 +63,5 @@ jobs:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE)
+file for details.

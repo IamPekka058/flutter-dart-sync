@@ -1,6 +1,9 @@
 import * as core from '@actions/core'
 import { execSync } from 'child_process'
-import { getPubspecDartSdkVersion, updatePubspecDartSdkVersion } from './fileHandler.js'
+import {
+  getPubspecDartSdkVersion,
+  updatePubspecDartSdkVersion
+} from './fileHandler.js'
 
 /**
  * Main entry point for the GitHub Action.

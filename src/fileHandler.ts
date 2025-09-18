@@ -13,7 +13,7 @@ export function updatePubspecDartSdkVersion(
   pubspecPath: string,
   newVersion: string
 ): void {
-    updateDependencyVersion(pubspecPath, 'sdk', newVersion, 'environment');
+  updateDependencyVersion(pubspecPath, 'sdk', newVersion, 'environment')
 }
 
 /**
@@ -25,34 +25,41 @@ export function updatePubspecDartSdkVersion(
  */
 export function updateDependencyVersion(
   pubspecPath: string,
-  dependencyName: string, dependencyVersion:string, dependencyType: string){
+  dependencyName: string,
+  dependencyVersion: string,
+  dependencyType: string
+) {
+  try {
+    const pubspecContent = fs.readFileSync(pubspecPath, 'utf-8')
+    const pubspec = yaml.load(pubspecContent) as PubspecFile
 
-    try {
-        const pubspecContent = fs.readFileSync(pubspecPath, 'utf-8')
-        const pubspec = yaml.load(pubspecContent) as PubspecFile
-
-        if (
-            typeof pubspec[dependencyType] === 'object' &&
-            pubspec[dependencyType] !== null
-        ) {
-            (pubspec[dependencyType] as Record<string, unknown>)[dependencyName] = dependencyVersion
-        } else {
-            throw new Error(`Dependency type '${dependencyType}' not found or not an object in pubspec.yaml`)
-        }
-
-        const newPubspecContent = yaml.dump(pubspec)
-        fs.writeFileSync(pubspecPath, newPubspecContent, 'utf-8')
-        core.info(`Updated ${dependencyName} ${dependencyType} version in pubspec.yaml to ${dependencyVersion}`)
-    } catch (error) {
-        core.debug(
-            `Failed to update dependency in pubspec.yaml: ${error instanceof Error ? error.message : String(error)}`
-        )
-        core.error(
-            'Failed to update dependency in pubspec.yaml. Please ensure the file is writable and the path is correct.'
-        )
-        process.exit(1)
+    if (
+      typeof pubspec[dependencyType] === 'object' &&
+      pubspec[dependencyType] !== null
+    ) {
+      ;(pubspec[dependencyType] as Record<string, unknown>)[dependencyName] =
+        dependencyVersion
+    } else {
+      throw new Error(
+        `Dependency type '${dependencyType}' not found or not an object in pubspec.yaml`
+      )
     }
+
+    const newPubspecContent = yaml.dump(pubspec)
+    fs.writeFileSync(pubspecPath, newPubspecContent, 'utf-8')
+    core.info(
+      `Updated ${dependencyName} ${dependencyType} version in pubspec.yaml to ${dependencyVersion}`
+    )
+  } catch (error) {
+    core.debug(
+      `Failed to update dependency in pubspec.yaml: ${error instanceof Error ? error.message : String(error)}`
+    )
+    core.error(
+      'Failed to update dependency in pubspec.yaml. Please ensure the file is writable and the path is correct.'
+    )
+    process.exit(1)
   }
+}
 
 /**
  * Reads the Dart SDK version constraint from the given pubspec.yaml file.

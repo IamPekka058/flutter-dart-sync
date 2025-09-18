@@ -8,7 +8,9 @@
 
 ## Overview
 
-**flutter-dart-sync** is a GitHub Action that automatically updates the Dart SDK version in your `pubspec.yaml` to match the Dart version bundled with the installed Flutter SDK.
+**flutter-dart-sync** is a GitHub Action that automatically updates the Dart SDK
+version in your `pubspec.yaml` to match the Dart version bundled with the
+installed Flutter SDK.
 
 ## Features
 
@@ -16,7 +18,6 @@
 - Optionally fail if Flutter is not installed
 - Easy integration into CI/CD workflows
 - TypeScript codebase with tests and linter
-
 
 ## Usage
 

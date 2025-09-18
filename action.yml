@@ -1,5 +1,7 @@
 name: flutter-dart-sync
-description: Automatically updates the Dart SDK version in your pubspec.yaml to match the Dart version bundled with the installed Flutter SDK.
+description:
+  Automatically updates the Dart SDK version in your pubspec.yaml to match the
+  Dart version bundled with the installed Flutter SDK.
 author: IamPekka058 <59747867+IamPekka058@users.noreply.github.com>
 
 branding:
@@ -7,10 +9,16 @@ branding:
   color: green
 
 inputs:
-  milliseconds:
-    description: Your input description here
+  pubspec_path:
+    description: 'Path to the pubspec.yaml file (default: ./pubspec.yaml)'
     required: true
-    default: '1000'
+    default: './pubspec.yaml'
+  fail_if_flutter_not_installed:
+    description:
+      'Whether to fail the action if Flutter is not installed (default: false)'
+    required: false
+    default: false
+
 
 outputs:
   time:

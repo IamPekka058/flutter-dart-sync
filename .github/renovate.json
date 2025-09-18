@@ -1,29 +1,29 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": ["config:recommended"],
-    "major": {
-        "automerge": false
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "major": {
+    "automerge": false
+  },
+  "rangeStrategy": "pin",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
     },
-    "rangeStrategy": "pin",
-    "packageRules": [
-        {
-            "matchUpdateTypes": ["patch"],
-            "automerge": true
-        },
-        {
-            "matchUpdateTypes": ["pin"],
-            "commitMessagePrefix": "📌",
-            "commitMessageAction": "Pin"
-        },
-        {
-            "matchUpdateTypes": ["rollback"],
-            "commitMessagePrefix": "⬇️",
-            "commitMessageAction": "Downgrade"
-        }
-    ],
-    "commitMessagePrefix": "⬆️",
-    "commitMessageAction": "Upgrade",
-    "labels": ["📌 Dependencies"],
-    "dependencyDashboardTitle": "📌 Dependency Dashboard",
-    "dependencyDashboardLabels": ["📌 Dependencies"]
+    {
+      "matchUpdateTypes": ["pin"],
+      "commitMessagePrefix": "📌",
+      "commitMessageAction": "Pin"
+    },
+    {
+      "matchUpdateTypes": ["rollback"],
+      "commitMessagePrefix": "⬇️",
+      "commitMessageAction": "Downgrade"
+    }
+  ],
+  "commitMessagePrefix": "⬆️",
+  "commitMessageAction": "Upgrade",
+  "labels": ["📌 Dependencies"],
+  "dependencyDashboardTitle": "📌 Dependency Dashboard",
+  "dependencyDashboardLabels": ["📌 Dependencies"]
 }

@@ -1,27 +1,102 @@
 import * as core from '@actions/core'
-import { wait } from './wait.js'
+import { execSync } from 'child_process'
+import {
+  getPubspecDartSdkVersion,
+  updatePubspecDartSdkVersion
+} from './fileHandler.js'
 
 /**
- * The main function for the action.
+ * Main entry point for the GitHub Action.
  *
  * @returns Resolves when the action is complete.
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const pubspec_path = core.getInput('pubspec_path', { required: true })
+    const failIfFlutterNotInstalled =
+      core.getInput('fail_if_flutter_not_installed', { required: false }) ===
+      'true'
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    core.debug(`pubspec_path: ${pubspec_path}`)
+    core.debug(`fail_if_flutter_not_installed: ${failIfFlutterNotInstalled}`)
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    if (!checkFlutterInstalled()) {
+      if (failIfFlutterNotInstalled) {
+        core.setFailed(
+          'Flutter is not installed or not found in PATH. Please install Flutter and ensure it is accessible from the command line.'
+        )
+        return
+      } else {
+        core.warning(
+          'Flutter is not installed or not found in PATH. Skipping Dart SDK version synchronization.'
+        )
+        return
+      }
+    }
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    core.info(
+      'Flutter is installed. Proceeding with Dart SDK version synchronization.'
+    )
+
+    // Get the Dart SDK version from Flutter
+    const flutterDartVersion = getFlutterDartSdkVersion()
+    const pubspecDartVersion = getPubspecDartSdkVersion(pubspec_path)
+
+    if (flutterDartVersion == pubspecDartVersion) {
+      core.info(
+        `Dart SDK version in pubspec.yaml (${pubspecDartVersion}) is already up to date with Flutter's Dart SDK version (${flutterDartVersion}). No changes needed.`
+      )
+      return
+    }
+
+    core.info(
+      `Updating Dart SDK version in pubspec.yaml from ${pubspecDartVersion} to ${flutterDartVersion}.`
+    )
+
+    updatePubspecDartSdkVersion(pubspec_path, flutterDartVersion)
+    core.info('Dart SDK version synchronization complete.')
+    return
   } catch (error) {
-    // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)
+  }
+}
+
+/**
+ * Checks if Flutter is installed and available in the system PATH.
+ *
+ * Executes 'flutter --version' to verify installation.
+ * @returns {boolean} True if Flutter is installed, false otherwise.
+ */
+function checkFlutterInstalled(): boolean {
+  try {
+    execSync('flutter --version', { stdio: 'ignore' })
+    return true
+  } catch (error) {
+    core.debug(
+      `Flutter check failed: ${error instanceof Error ? error.message : String(error)}`
+    )
+    return false
+  }
+}
+
+/**
+ * Gets the Dart SDK version bundled with the installed Flutter SDK.
+ *
+ * @returns The Dart SDK version bundled with the installed Flutter SDK, or null if it cannot be determined.
+ */
+function getFlutterDartSdkVersion(): string {
+  try {
+    const output = execSync('flutter --version --machine', {
+      encoding: 'utf-8'
+    })
+    const versionInfo = JSON.parse(output)
+    const flutterDartVersion = versionInfo?.dartSdkVersion
+    return flutterDartVersion
+  } catch (error) {
+    core.debug(
+      `Failed to get Flutter Dart SDK version: ${error instanceof Error ? error.message : String(error)}`
+    )
+    core.error('Failed to get Flutter Dart SDK version.')
+    process.exit(1)
   }
 }

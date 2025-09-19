@@ -31,7 +31,7 @@ jobs:
       - name: Run Action (local)
         uses: ./
         with:
-          pubspec_path: "__fixtures__/pubspec.yaml"
+          pubspec_path: '__fixtures__/pubspec.yaml'
 
       - name: Install dependencies
         working-directory: __fixtures__

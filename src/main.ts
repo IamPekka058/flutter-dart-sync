@@ -84,7 +84,7 @@ function checkFlutterInstalled(): boolean {
  *
  * @returns The Dart SDK version bundled with the installed Flutter SDK, or null if it cannot be determined.
  */
-function getFlutterDartSdkVersion(): string {
+export function getFlutterDartSdkVersion(): string {
   try {
     const output = execSync('flutter --version --machine', {
       encoding: 'utf-8'

@@ -20,12 +20,13 @@ jobs:
           node-version: '24'
 
       - name: Get dart version
-        run: dart --version
+        run: cat __fixtures__/pubspec.yaml | grep sdk
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.13.0'
+          cache: 'true'
 
       - name: Run Action (local)
         uses: ./
@@ -37,4 +38,4 @@ jobs:
         run: flutter pub get
 
       - name: Get dart version
-        run: dart --version
+        run: cat __fixtures__/pubspec.yaml | grep sdk

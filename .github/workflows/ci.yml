@@ -19,6 +19,9 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Get dart version
+        run: dart --version
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -28,3 +31,10 @@ jobs:
         uses: ./
         with:
           pubspec_path: "__fixtures__/pubspec.yaml"
+
+      - name: Install dependencies
+        working-directory: ___fixtures__
+        run: flutter pub get
+
+      - name: Get dart version
+        run: dart --version

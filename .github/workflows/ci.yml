@@ -20,7 +20,7 @@ jobs:
           node-version: '24'
 
       - name: Get dart version
-        run: cat __fixtures__/pubspec.yaml | grep sdk
+        run: cat .github/pubspec.yaml | grep sdk
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -31,11 +31,11 @@ jobs:
       - name: Run Action (local)
         uses: ./
         with:
-          pubspec_path: '__fixtures__/pubspec.yaml'
+          pubspec_path: '.github/pubspec.yaml'
 
       - name: Install dependencies
-        working-directory: __fixtures__
+        working-directory: .github
         run: flutter pub get
 
       - name: Get dart version
-        run: cat __fixtures__/pubspec.yaml | grep sdk
+        run: cat .github/pubspec.yaml | grep sdk

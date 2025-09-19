@@ -1,5 +1,7 @@
 name: flutter-dart-sync
-description: Syncs the Dart SDK version in pubspec.yaml with the Dart version bundled in Flutter.
+description:
+  Syncs the Dart SDK version in pubspec.yaml with the Dart version bundled in
+  Flutter.
 author: IamPekka058 <59747867+IamPekka058@users.noreply.github.com>
 
 branding:

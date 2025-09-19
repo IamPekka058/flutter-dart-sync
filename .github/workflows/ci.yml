@@ -33,7 +33,7 @@ jobs:
           pubspec_path: "__fixtures__/pubspec.yaml"
 
       - name: Install dependencies
-        working-directory: ___fixtures__
+        working-directory: __fixtures__
         run: flutter pub get
 
       - name: Get dart version

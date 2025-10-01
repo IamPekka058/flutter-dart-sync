@@ -13,9 +13,9 @@ const {
   updateDependencyVersion,
   getPubspecDartSdkVersion,
   updatePubspecDartSdkVersion
-} = await import('../src/fileHandler')
+} = await import('../src/fileHandler.js')
 const core = await import('@actions/core')
-import PubspecFile from '../src/PubspecType'
+import PubspecFile from '../src/PubspecType.js'
 
 jest.spyOn(process, 'exit').mockImplementation(((code?: number) => {
   throw new Error(`process.exit: ${code}`)

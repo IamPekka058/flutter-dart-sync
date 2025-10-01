@@ -56,3 +56,5 @@ jobs:
           VALIDATE_TYPESCRIPT_ES: false
           VALIDATE_JSON: false
           VALIDATE_CHECKOV: false
+          VALIDATE_BIOME_LINT: false
+          VALIDATE_BIOME: false

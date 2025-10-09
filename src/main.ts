@@ -57,7 +57,7 @@ export async function run(): Promise<void> {
     updatePubspecDartSdkVersion(pubspec_path, flutterDartVersion)
     core.info('Dart SDK version synchronization complete.')
 
-    commitWithApp(pubspec_path);
+    commitWithApp(pubspec_path)
 
     return
   } catch (error) {

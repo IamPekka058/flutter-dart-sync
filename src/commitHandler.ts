@@ -15,13 +15,13 @@ async function commitChanges(pubspecPath: string): Promise<void> {
 
   const commitMessage = core.getInput('commit_message')
   const gh_app_id = core.getInput('gh_app_id')
-  const gh_app_installation_id = core.getInput('gh_app_installation_id')
+  const gh_installation_id = core.getInput('gh_installation_id')
   const gh_private_key = core.getInput('gh_private_key')
 
   if (
     commitMessage === '' ||
     gh_app_id === '' ||
-    gh_app_installation_id === '' ||
+    gh_installation_id === '' ||
     gh_private_key === ''
   ) {
     core.warning(
@@ -33,11 +33,11 @@ async function commitChanges(pubspecPath: string): Promise<void> {
   const auth = createAppAuth({
     appId: gh_app_id,
     privateKey: gh_private_key,
-    installationId: gh_app_installation_id
+    installationId: gh_installation_id
   })
   const installationAuth = await auth({
     type: 'installation',
-    installationId: gh_app_installation_id
+    installationId: gh_installation_id
   })
   const octokit = new Octokit({ auth: installationAuth.token })
 

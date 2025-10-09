@@ -39655,7 +39655,7 @@ async function commitChanges(pubspecPath) {
     const refData = await octokit.git.getRef({
         owner: process.env.GITHUB_REPOSITORY.split('/')[0],
         repo: process.env.GITHUB_REPOSITORY.split('/')[1],
-        ref: `heads/${process.env.GITHUB_REF.split('/')[2]}`
+        ref: `heads/${getBranchName()}`
     });
     const commitData = await octokit.git.getCommit({
         owner: process.env.GITHUB_REPOSITORY.split('/')[0],
@@ -39686,11 +39686,20 @@ async function commitChanges(pubspecPath) {
     await octokit.git.updateRef({
         owner: process.env.GITHUB_REPOSITORY.split('/')[0],
         repo: process.env.GITHUB_REPOSITORY.split('/')[1],
-        ref: `heads/${process.env.GITHUB_REF.split('/')[2]}`,
+        ref: `heads/${getBranchName()}`,
         sha: newCommit.data.sha
     });
     coreExports.info('Changes committed successfully.');
     return;
+}
+function getBranchName() {
+    if (process.env.GITHUB_HEAD_REF)
+        return process.env.GITHUB_HEAD_REF;
+    if (process.env.GITHUB_REF &&
+        process.env.GITHUB_REF.startsWith('refs/heads/')) {
+        return process.env.GITHUB_REF.replace('refs/heads/', '');
+    }
+    return '';
 }
 function commitWithApp(pubspecPath) {
     commitChanges(pubspecPath).catch((error) => {

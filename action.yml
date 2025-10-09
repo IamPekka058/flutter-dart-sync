@@ -18,6 +18,28 @@ inputs:
       'Whether to fail the action if Flutter is not installed (default: false)'
     required: false
     default: false
+  commit_changes:
+    description:
+      'Whether to commit the changes to pubspec.yaml (default: false)'
+    required: false
+    default: false
+  commit_message:
+    description:
+      'Commit message to use when committing changes (default: "chore: sync Dart SDK version with Flutter")'
+    required: false
+    default: 'chore: sync Dart SDK version with Flutter'
+  gh_app_id:
+    description: "GitHub App ID"
+    required: false
+    default: ''
+  gh_private_key:
+    description: "Private key (PEM) of the GitHub App"
+    required: false
+    default: ''
+  gh_installation_id:
+    description: "Installation ID of the GitHub App"
+    required: false
+    default: ''
 
 runs:
   using: node24

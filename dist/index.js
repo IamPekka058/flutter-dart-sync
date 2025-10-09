@@ -39634,17 +39634,17 @@ async function commitChanges(pubspecPath) {
     const commitMessage = coreExports.getInput('commit_message');
     const gh_app_id = coreExports.getInput('gh_app_id');
     const gh_app_installation_id = coreExports.getInput('gh_app_installation_id');
-    const gh_app_private_key = coreExports.getInput('gh_app_private_key');
+    const gh_private_key = coreExports.getInput('gh_private_key');
     if (commitMessage === '' ||
         gh_app_id === '' ||
         gh_app_installation_id === '' ||
-        gh_app_private_key === '') {
+        gh_private_key === '') {
         coreExports.warning('One or more required inputs are missing regarding commit. Skipping commit.');
         return;
     }
     const auth = createAppAuth({
         appId: gh_app_id,
-        privateKey: gh_app_private_key,
+        privateKey: gh_private_key,
         installationId: gh_app_installation_id
     });
     const installationAuth = await auth({

@@ -1,6 +1,6 @@
-language: "en-US"
+language: 'en-US'
 reviews:
-  profile: "assertive"
+  profile: 'assertive'
   high_level_summary: false
   changed_files_summary: false
   sequence_diagrams: false
@@ -9,8 +9,8 @@ reviews:
     enabled: true
     drafts: false
     ignore_title_keywords:
-      - "wip"
-      - "draft"
+      - 'wip'
+      - 'draft'
   tools:
     gitleaks:
       enabled: true
@@ -22,5 +22,5 @@ knowledge_base:
   code_guidelines:
     enabled: true
     filePatterns:
-      - "**/.cursorrules"
-      - "**/CODING_STANDARDS.md"
+      - '**/.cursorrules'
+      - '**/CODING_STANDARDS.md'

@@ -11,7 +11,6 @@
 > (e.g., `sdk: '>=3.1.0 <4.0.0'`).
 
 > **What's new in v1**
->
 > - Syncs the `environment.sdk` constraint in `pubspec.yaml` to the exact Dart
 >   version bundled with the installed Flutter SDK (e.g. `3.1.0`).
 > - Updates only the `environment.sdk` field; other parts of `pubspec.yaml` are

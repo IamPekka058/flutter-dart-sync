@@ -12,13 +12,13 @@
 
 > **What's new in v1**
 > - Syncs the `environment.sdk` constraint in `pubspec.yaml` to the exact Dart
->   version bundled with the installed Flutter SDK (e.g. `3.1.0`).
+    > version bundled with the installed Flutter SDK (e.g. `3.1.0`).
 > - Updates only the `environment.sdk` field; other parts of `pubspec.yaml` are
 
 ## Inputs
 
 | Name                            | Description                                                                             | Required | Default          |
-| ------------------------------- | --------------------------------------------------------------------------------------- | -------- | ---------------- |
+|---------------------------------|-----------------------------------------------------------------------------------------|----------|------------------|
 | `pubspec_path`                  | Path to the `pubspec.yaml` file.                                                        | `true`   | `./pubspec.yaml` |
 | `fail_if_flutter_not_installed` | Whether to fail the action if the Flutter SDK is not installed.                         | `false`  | `false`          |
 | `commit_changes`                | If `true`, attempt to commit the updated `pubspec.yaml` using GitHub App.               | `false`  | `false`          |

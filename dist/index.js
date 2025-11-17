@@ -31646,12 +31646,13 @@ let RequestError$6 = class RequestError extends Error {
    */
   response;
   constructor(message, statusCode, options) {
-    super(message);
+    super(message, { cause: options.cause });
     this.name = "HttpError";
     this.status = Number.parseInt(statusCode);
     if (Number.isNaN(this.status)) {
       this.status = 0;
     }
+    /* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
     if ("response" in options) {
       this.response = options.response;
     }
@@ -31672,7 +31673,7 @@ let RequestError$6 = class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$m = "10.0.5";
+var VERSION$m = "10.0.7";
 
 // pkg/dist-src/defaults.js
 var defaults_default$6 = {
@@ -31690,6 +31691,7 @@ function isPlainObject$c(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
+var noop$5 = () => "";
 async function fetchWrapper$6(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -31791,7 +31793,7 @@ async function fetchWrapper$6(requestOptions) {
 async function getResponseData$6(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$5);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$6(mimetype)) {
@@ -31803,9 +31805,12 @@ async function getResponseData$6(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$5);
   } else {
-    return response.arrayBuffer().catch(() => new ArrayBuffer(0));
+    return response.arrayBuffer().catch(
+      /* v8 ignore next -- @preserve */
+      () => new ArrayBuffer(0)
+    );
   }
 }
 function isJSONResponse$6(mimetype) {
@@ -31852,6 +31857,8 @@ function withDefaults$d(oldEndpoint, newDefaults) {
 
 // pkg/dist-src/index.js
 var request$6 = withDefaults$d(endpoint$6, defaults_default$6);
+/* v8 ignore next -- @preserve */
+/* v8 ignore else -- @preserve */
 
 // pkg/dist-src/defaults.js
 
@@ -32211,12 +32218,13 @@ let RequestError$5 = class RequestError extends Error {
    */
   response;
   constructor(message, statusCode, options) {
-    super(message);
+    super(message, { cause: options.cause });
     this.name = "HttpError";
     this.status = Number.parseInt(statusCode);
     if (Number.isNaN(this.status)) {
       this.status = 0;
     }
+    /* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
     if ("response" in options) {
       this.response = options.response;
     }
@@ -32237,7 +32245,7 @@ let RequestError$5 = class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$k = "10.0.5";
+var VERSION$k = "10.0.7";
 
 // pkg/dist-src/defaults.js
 var defaults_default$5 = {
@@ -32255,6 +32263,7 @@ function isPlainObject$a(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
+var noop$4 = () => "";
 async function fetchWrapper$5(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -32356,7 +32365,7 @@ async function fetchWrapper$5(requestOptions) {
 async function getResponseData$5(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$4);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$5(mimetype)) {
@@ -32368,9 +32377,12 @@ async function getResponseData$5(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$4);
   } else {
-    return response.arrayBuffer().catch(() => new ArrayBuffer(0));
+    return response.arrayBuffer().catch(
+      /* v8 ignore next -- @preserve */
+      () => new ArrayBuffer(0)
+    );
   }
 }
 function isJSONResponse$5(mimetype) {
@@ -32417,6 +32429,8 @@ function withDefaults$b(oldEndpoint, newDefaults) {
 
 // pkg/dist-src/index.js
 var request$5 = withDefaults$b(endpoint$5, defaults_default$5);
+/* v8 ignore next -- @preserve */
+/* v8 ignore else -- @preserve */
 
 // pkg/dist-src/defaults.js
 
@@ -32776,12 +32790,13 @@ let RequestError$4 = class RequestError extends Error {
    */
   response;
   constructor(message, statusCode, options) {
-    super(message);
+    super(message, { cause: options.cause });
     this.name = "HttpError";
     this.status = Number.parseInt(statusCode);
     if (Number.isNaN(this.status)) {
       this.status = 0;
     }
+    /* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
     if ("response" in options) {
       this.response = options.response;
     }
@@ -32802,7 +32817,7 @@ let RequestError$4 = class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$i = "10.0.5";
+var VERSION$i = "10.0.7";
 
 // pkg/dist-src/defaults.js
 var defaults_default$4 = {
@@ -32820,6 +32835,7 @@ function isPlainObject$8(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
+var noop$3 = () => "";
 async function fetchWrapper$4(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -32921,7 +32937,7 @@ async function fetchWrapper$4(requestOptions) {
 async function getResponseData$4(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$3);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$4(mimetype)) {
@@ -32933,9 +32949,12 @@ async function getResponseData$4(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$3);
   } else {
-    return response.arrayBuffer().catch(() => new ArrayBuffer(0));
+    return response.arrayBuffer().catch(
+      /* v8 ignore next -- @preserve */
+      () => new ArrayBuffer(0)
+    );
   }
 }
 function isJSONResponse$4(mimetype) {
@@ -32982,6 +33001,8 @@ function withDefaults$9(oldEndpoint, newDefaults) {
 
 // pkg/dist-src/index.js
 var request$4 = withDefaults$9(endpoint$4, defaults_default$4);
+/* v8 ignore next -- @preserve */
+/* v8 ignore else -- @preserve */
 
 // pkg/dist-src/defaults.js
 
@@ -33341,12 +33362,13 @@ let RequestError$3 = class RequestError extends Error {
    */
   response;
   constructor(message, statusCode, options) {
-    super(message);
+    super(message, { cause: options.cause });
     this.name = "HttpError";
     this.status = Number.parseInt(statusCode);
     if (Number.isNaN(this.status)) {
       this.status = 0;
     }
+    /* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
     if ("response" in options) {
       this.response = options.response;
     }
@@ -33367,7 +33389,7 @@ let RequestError$3 = class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$g = "10.0.5";
+var VERSION$g = "10.0.7";
 
 // pkg/dist-src/defaults.js
 var defaults_default$3 = {
@@ -33385,6 +33407,7 @@ function isPlainObject$6(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
+var noop$2 = () => "";
 async function fetchWrapper$3(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -33486,7 +33509,7 @@ async function fetchWrapper$3(requestOptions) {
 async function getResponseData$3(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$2);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$3(mimetype)) {
@@ -33498,9 +33521,12 @@ async function getResponseData$3(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$2);
   } else {
-    return response.arrayBuffer().catch(() => new ArrayBuffer(0));
+    return response.arrayBuffer().catch(
+      /* v8 ignore next -- @preserve */
+      () => new ArrayBuffer(0)
+    );
   }
 }
 function isJSONResponse$3(mimetype) {
@@ -33547,6 +33573,8 @@ function withDefaults$7(oldEndpoint, newDefaults) {
 
 // pkg/dist-src/index.js
 var request$3 = withDefaults$7(endpoint$3, defaults_default$3);
+/* v8 ignore next -- @preserve */
+/* v8 ignore else -- @preserve */
 
 // pkg/dist-src/defaults.js
 
@@ -33906,12 +33934,13 @@ let RequestError$2 = class RequestError extends Error {
    */
   response;
   constructor(message, statusCode, options) {
-    super(message);
+    super(message, { cause: options.cause });
     this.name = "HttpError";
     this.status = Number.parseInt(statusCode);
     if (Number.isNaN(this.status)) {
       this.status = 0;
     }
+    /* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
     if ("response" in options) {
       this.response = options.response;
     }
@@ -33932,7 +33961,7 @@ let RequestError$2 = class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$e = "10.0.5";
+var VERSION$e = "10.0.7";
 
 // pkg/dist-src/defaults.js
 var defaults_default$2 = {
@@ -33950,6 +33979,7 @@ function isPlainObject$4(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
+var noop$1 = () => "";
 async function fetchWrapper$2(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -34051,7 +34081,7 @@ async function fetchWrapper$2(requestOptions) {
 async function getResponseData$2(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$1);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$2(mimetype)) {
@@ -34063,9 +34093,12 @@ async function getResponseData$2(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$1);
   } else {
-    return response.arrayBuffer().catch(() => new ArrayBuffer(0));
+    return response.arrayBuffer().catch(
+      /* v8 ignore next -- @preserve */
+      () => new ArrayBuffer(0)
+    );
   }
 }
 function isJSONResponse$2(mimetype) {
@@ -34112,6 +34145,8 @@ function withDefaults$5(oldEndpoint, newDefaults) {
 
 // pkg/dist-src/index.js
 var request$2 = withDefaults$5(endpoint$2, defaults_default$2);
+/* v8 ignore next -- @preserve */
+/* v8 ignore else -- @preserve */
 
 // pkg/dist-src/version.js
 function requestToOAuthBaseUrl(request) {
@@ -35528,7 +35563,7 @@ async function sendRequestWithRetries(state, request, options, createdAt, retrie
 }
 
 // pkg/dist-src/version.js
-var VERSION$a = "8.1.1";
+var VERSION$a = "8.1.2";
 function createAppAuth(options) {
   if (!options.appId) {
     throw new Error("[@octokit/auth-app] appId option is required");
@@ -36088,7 +36123,7 @@ let RequestError$1 = class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$8 = "10.0.3";
+var VERSION$8 = "10.0.5";
 
 // pkg/dist-src/defaults.js
 var defaults_default$1 = {
@@ -36653,7 +36688,7 @@ class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$6 = "10.0.3";
+var VERSION$6 = "10.0.5";
 
 // pkg/dist-src/defaults.js
 var defaults_default = {
@@ -37004,7 +37039,7 @@ var createTokenAuth = function createTokenAuth2(token) {
   });
 };
 
-const VERSION$4 = "7.0.4";
+const VERSION$4 = "7.0.5";
 
 const noop = () => {
 };

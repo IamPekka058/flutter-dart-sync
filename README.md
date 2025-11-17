@@ -10,17 +10,23 @@
 > Dart SDK version (e.g., `sdk: 3.1.0`). It does not yet support version ranges
 > (e.g., `sdk: '>=3.1.0 <4.0.0'`).
 
-**flutter-dart-sync** is a GitHub Action that automatically updates the Dart SDK
-version in your `pubspec.yaml` to match the Dart version bundled with the
-installed Flutter SDK. This ensures that your project's Dart SDK constraint is
-always in sync with the Flutter version used in your CI environment.
+> **What's new in v1**
+>
+> - Syncs the `environment.sdk` constraint in `pubspec.yaml` to the exact Dart
+>   version bundled with the installed Flutter SDK (e.g. `3.1.0`).
+> - Updates only the `environment.sdk` field; other parts of `pubspec.yaml` are
 
 ## Inputs
 
-| Name                            | Description                                                     | Required | Default          |
-| ------------------------------- | --------------------------------------------------------------- | -------- | ---------------- |
-| `pubspec_path`                  | Path to the `pubspec.yaml` file.                                | `true`   | `./pubspec.yaml` |
-| `fail_if_flutter_not_installed` | Whether to fail the action if the Flutter SDK is not installed. | `false`  | `false`          |
+| Name                            | Description                                                                             | Required | Default          |
+| ------------------------------- | --------------------------------------------------------------------------------------- | -------- | ---------------- |
+| `pubspec_path`                  | Path to the `pubspec.yaml` file.                                                        | `true`   | `./pubspec.yaml` |
+| `fail_if_flutter_not_installed` | Whether to fail the action if the Flutter SDK is not installed.                         | `false`  | `false`          |
+| `commit_changes`                | If `true`, attempt to commit the updated `pubspec.yaml` using GitHub App.               | `false`  | `false`          |
+| `commit_message`                | Commit message to use when committing changes (required if `commit_changes` is `true`). | `false`  | ``               |
+| `gh_app_id`                     | GitHub App ID (required for committing via the GitHub App flow).                        | `false`  | ``               |
+| `gh_installation_id`            | GitHub App installation ID (required for committing via the GitHub App).                | `false`  | ``               |
+| `gh_private_key`                | GitHub App private key (PEM) used to authenticate the App.                              | `false`  | ``               |
 
 ## Usage
 
@@ -48,7 +54,7 @@ jobs:
           flutter-version: '3.16.0' # Example version
 
       - name: Sync Dart SDK version with Flutter
-        uses: IamPekka058/flutter-dart-sync@v1 # Replace with the correct version
+        uses: IamPekka058/flutter-dart-sync@v1
         with:
           pubspec_path: './pubspec.yaml'
           fail_if_flutter_not_installed: true
@@ -56,9 +62,18 @@ jobs:
       # Add subsequent steps like flutter pub get, build, test, etc.
       - name: Install Dependencies
         run: flutter pub get
+```
 
-      - name: Run Tests
-        run: flutter test
+```yaml
+- name: Sync Dart and commit via GitHub App
+  uses: IamPekka058/flutter-dart-sync@v1
+  with:
+    pubspec_path: './pubspec.yaml'
+    commit_changes: true
+    commit_message: 'chore: sync Dart SDK with Flutter'
+    gh_app_id: ${{ secrets.GH_APP_ID }}
+    gh_installation_id: ${{ secrets.GH_INSTALLATION_ID }}
+    gh_private_key: ${{ secrets.GH_PRIVATE_KEY }}
 ```
 
 ## License

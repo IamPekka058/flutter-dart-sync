@@ -41,9 +41,17 @@ async function commitChanges(pubspecPath: string): Promise<void> {
   })
   const octokit = new Octokit({ auth: installationAuth.token })
 
+  if (!process.env.GITHUB_REPOSITORY) {
+    throw new Error('GITHUB_REPOSITORY environment variable is not set')
+  }
+  const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
+  if (!owner || !repo) {
+    throw new Error('Invalid GITHUB_REPOSITORY format')
+  }
+
   const refData = await octokit.git.getRef({
-    owner: process.env.GITHUB_REPOSITORY!.split('/')[0],
-    repo: process.env.GITHUB_REPOSITORY!.split('/')[1],
+    owner,
+    repo,
     ref: `heads/${getBranchName()}`
   })
 
@@ -96,7 +104,7 @@ function getBranchName(): string {
   ) {
     return process.env.GITHUB_REF.replace('refs/heads/', '')
   }
-  return ''
+  throw new Error('Unable to determine branch name from environment variables')
 }
 
 export function commitWithApp(pubspecPath: string) {

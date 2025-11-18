@@ -28,7 +28,7 @@ inputs:
       'Commit message to use when committing changes (default: "chore: sync Dart
       SDK version with Flutter")'
     required: false
-    default: 'chore: sync Dart SDK version with Flutter'
+    default: '📌 Sync Dart SDK version with Flutter'
   gh_app_id:
     description: 'GitHub App ID'
     required: false

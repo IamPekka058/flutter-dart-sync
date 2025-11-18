@@ -11,21 +11,22 @@
 > (e.g., `sdk: '>=3.1.0 <4.0.0'`).
 
 > **What's new in v1**
+>
 > - Syncs the `environment.sdk` constraint in `pubspec.yaml` to the exact Dart
 >   version bundled with the installed Flutter SDK (e.g. `3.1.0`).
 > - Updates only the `environment.sdk` field; other parts of `pubspec.yaml` are
 
 ## Inputs
 
-| Name                            | Description                                                                             | Required | Default          |
-| ------------------------------- | --------------------------------------------------------------------------------------- | -------- | ---------------- |
-| `pubspec_path`                  | Path to the `pubspec.yaml` file.                                                        | `true`   | `./pubspec.yaml` |
-| `fail_if_flutter_not_installed` | Whether to fail the action if the Flutter SDK is not installed.                         | `false`  | `false`          |
-| `commit_changes`                | If `true`, attempt to commit the updated `pubspec.yaml` using GitHub App.               | `false`  | `false`          |
-| `commit_message`                | Commit message to use when committing changes (required if `commit_changes` is `true`). | `false`  | ``               |
-| `gh_app_id`                     | GitHub App ID (required for committing via the GitHub App flow).                        | `false`  | ``               |
-| `gh_installation_id`            | GitHub App installation ID (required for committing via the GitHub App).                | `false`  | ``               |
-| `gh_private_key`                | GitHub App private key (PEM) used to authenticate the App.                              | `false`  | ``               |
+| Name                            | Description                                                                             | Required                                | Default          |
+| ------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------- | ---------------- |
+| `pubspec_path`                  | Path to the `pubspec.yaml` file.                                                        | `true`                                  | `./pubspec.yaml` |
+| `fail_if_flutter_not_installed` | Whether to fail the action if the Flutter SDK is not installed.                         | `false`                                 | `false`          |
+| `commit_changes`                | If `true`, attempt to commit the updated `pubspec.yaml` using GitHub App.               | `false`                                 | `false`          |
+| `commit_message`                | Commit message to use when committing changes (required if `commit_changes` is `true`). | `📌 Sync Dart SDK version with Flutter` | ``               |
+| `gh_app_id`                     | GitHub App ID (required for committing via the GitHub App flow).                        | `false`                                 | ``               |
+| `gh_installation_id`            | GitHub App installation ID (required for committing via the GitHub App).                | `false`                                 | ``               |
+| `gh_private_key`                | GitHub App private key (PEM) used to authenticate the App.                              | `false`                                 | ``               |
 
 ## Usage
 

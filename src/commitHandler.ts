@@ -6,9 +6,9 @@ import { getPubspecFile } from './fileHandler.js'
  * Commits the current changes to the repository.
  */
 async function commitChanges(pubspecPath: string): Promise<void> {
-  const signCommit = core.getInput('commit_changes') === 'true'
+  const shouldCommit = core.getInput('commit_changes') === 'true'
 
-  if (!signCommit) {
+  if (!shouldCommit) {
     core.info('Skipping commit as commit_changes is set to false')
     return
   }

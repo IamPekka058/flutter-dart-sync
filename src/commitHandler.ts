@@ -2,6 +2,9 @@ import * as core from '@actions/core'
 import { createAppAuth } from '@octokit/auth-app'
 import { Octokit } from '@octokit/rest'
 import { getPubspecFile } from './fileHandler.js'
+
+const FILE_MODE_REGULAR = '100644'
+
 /**
  * Commits the current changes to the repository.
  */
@@ -62,38 +65,45 @@ async function commitChanges(pubspecPath: string): Promise<void> {
   })
 
   const baseTree = commitData.data.tree.sha
+  let pubspecContent: string
+  try {
+    pubspecContent = getPubspecFile(pubspecPath)
+  } catch (error) {
+    throw new Error(
+      `Unable to read pubspec file for commit: ${error instanceof Error ? error.message : String(error)}`
+    )
+  }
 
   const newTree = await octokit.git.createTree({
-    owner: process.env.GITHUB_REPOSITORY!.split('/')[0],
-    repo: process.env.GITHUB_REPOSITORY!.split('/')[1],
+    owner,
+    repo,
     tree: [
       {
         path: pubspecPath,
-        mode: '100644',
+        mode: FILE_MODE_REGULAR,
         type: 'blob',
-        content: getPubspecFile(pubspecPath)
+        content: pubspecContent
       }
     ],
     base_tree: baseTree
   })
 
   const newCommit = await octokit.git.createCommit({
-    owner: process.env.GITHUB_REPOSITORY!.split('/')[0],
-    repo: process.env.GITHUB_REPOSITORY!.split('/')[1],
+    owner,
+    repo,
     message: commitMessage,
     tree: newTree.data.sha,
     parents: [commitData.data.sha]
   })
 
   await octokit.git.updateRef({
-    owner: process.env.GITHUB_REPOSITORY!.split('/')[0],
-    repo: process.env.GITHUB_REPOSITORY!.split('/')[1],
+    owner,
+    repo,
     ref: `heads/${getBranchName()}`,
     sha: newCommit.data.sha
   })
 
   core.info('Changes committed successfully.')
-  return
 }
 
 function getBranchName(): string {

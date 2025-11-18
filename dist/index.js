@@ -31096,7 +31096,7 @@ function getPubspecFile(pubspecPath) {
     catch (error) {
         coreExports.debug(`Failed to read pubspec.yaml: ${error instanceof Error ? error.message : String(error)}`);
         coreExports.error('Failed to read pubspec.yaml. Please ensure the path is correct.');
-        process.exit(1);
+        throw new Error(`Failed to read pubspec.yaml: ${error instanceof Error ? error.message : String(error)}`);
     }
 }
 
@@ -39663,6 +39663,7 @@ const Octokit = Octokit$1.plugin(requestLog, legacyRestEndpointMethods, paginate
   }
 );
 
+const FILE_MODE_REGULAR = '100644';
 /**
  * Commits the current changes to the repository.
  */
@@ -39711,34 +39712,40 @@ async function commitChanges(pubspecPath) {
         commit_sha: refData.data.object.sha
     });
     const baseTree = commitData.data.tree.sha;
+    let pubspecContent;
+    try {
+        pubspecContent = getPubspecFile(pubspecPath);
+    }
+    catch (error) {
+        throw new Error(`Unable to read pubspec file for commit: ${error instanceof Error ? error.message : String(error)}`);
+    }
     const newTree = await octokit.git.createTree({
-        owner: process.env.GITHUB_REPOSITORY.split('/')[0],
-        repo: process.env.GITHUB_REPOSITORY.split('/')[1],
+        owner,
+        repo,
         tree: [
             {
                 path: pubspecPath,
-                mode: '100644',
+                mode: FILE_MODE_REGULAR,
                 type: 'blob',
-                content: getPubspecFile(pubspecPath)
+                content: pubspecContent
             }
         ],
         base_tree: baseTree
     });
     const newCommit = await octokit.git.createCommit({
-        owner: process.env.GITHUB_REPOSITORY.split('/')[0],
-        repo: process.env.GITHUB_REPOSITORY.split('/')[1],
+        owner,
+        repo,
         message: commitMessage,
         tree: newTree.data.sha,
         parents: [commitData.data.sha]
     });
     await octokit.git.updateRef({
-        owner: process.env.GITHUB_REPOSITORY.split('/')[0],
-        repo: process.env.GITHUB_REPOSITORY.split('/')[1],
+        owner,
+        repo,
         ref: `heads/${getBranchName()}`,
         sha: newCommit.data.sha
     });
     coreExports.info('Changes committed successfully.');
-    return;
 }
 function getBranchName() {
     if (process.env.GITHUB_HEAD_REF)
@@ -39791,7 +39798,10 @@ async function run() {
         coreExports.info(`Updating Dart SDK version in pubspec.yaml from ${pubspecDartVersion} to ${flutterDartVersion}.`);
         updatePubspecDartSdkVersion(pubspec_path, flutterDartVersion);
         coreExports.info('Dart SDK version synchronization complete.');
-        commitWithApp(pubspec_path);
+        const shouldCommit = coreExports.getInput('commit_changes', { required: false }) === 'true';
+        if (shouldCommit) {
+            await commitWithApp(pubspec_path);
+        }
         return;
     }
     catch (error) {

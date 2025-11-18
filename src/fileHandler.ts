@@ -103,6 +103,8 @@ export function getPubspecFile(pubspecPath: string): string {
     core.error(
       'Failed to read pubspec.yaml. Please ensure the path is correct.'
     )
-    process.exit(1)
+    throw new Error(
+      `Failed to read pubspec.yaml: ${error instanceof Error ? error.message : String(error)}`
+    )
   }
 }

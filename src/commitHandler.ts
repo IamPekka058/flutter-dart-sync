@@ -108,9 +108,9 @@ function getBranchName(): string {
 }
 
 export async function commitWithApp(pubspecPath: string): Promise<void> {
-  try{
-    await commitChanges(pubspecPath);
-  } catch(error) {
+  try {
+    await commitChanges(pubspecPath)
+  } catch (error) {
     core.setFailed(
       `Failed to commit changes: ${error instanceof Error ? error.message : String(error)}`
     )

@@ -107,10 +107,12 @@ function getBranchName(): string {
   throw new Error('Unable to determine branch name from environment variables')
 }
 
-export function commitWithApp(pubspecPath: string) {
-  commitChanges(pubspecPath).catch((error) => {
+export async function commitWithApp(pubspecPath: string): Promise<void> {
+  try{
+    await commitChanges(pubspecPath);
+  } catch(error) {
     core.setFailed(
       `Failed to commit changes: ${error instanceof Error ? error.message : String(error)}`
     )
-  })
+  }
 }

@@ -39667,8 +39667,8 @@ const Octokit = Octokit$1.plugin(requestLog, legacyRestEndpointMethods, paginate
  * Commits the current changes to the repository.
  */
 async function commitChanges(pubspecPath) {
-    const signCommit = coreExports.getInput('commit_changes') === 'true';
-    if (!signCommit) {
+    const shouldCommit = coreExports.getInput('commit_changes') === 'true';
+    if (!shouldCommit) {
         coreExports.info('Skipping commit as commit_changes is set to false');
         return;
     }
@@ -39749,10 +39749,13 @@ function getBranchName() {
     }
     throw new Error('Unable to determine branch name from environment variables');
 }
-function commitWithApp(pubspecPath) {
-    commitChanges(pubspecPath).catch((error) => {
+async function commitWithApp(pubspecPath) {
+    try {
+        await commitChanges(pubspecPath);
+    }
+    catch (error) {
         coreExports.setFailed(`Failed to commit changes: ${error instanceof Error ? error.message : String(error)}`);
-    });
+    }
 }
 
 /**

@@ -31697,7 +31697,7 @@ function isPlainObject$c(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
-var noop$5 = () => "";
+var noop$7 = () => "";
 async function fetchWrapper$6(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -31799,7 +31799,7 @@ async function fetchWrapper$6(requestOptions) {
 async function getResponseData$6(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(noop$5);
+    return response.text().catch(noop$7);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$6(mimetype)) {
@@ -31811,7 +31811,7 @@ async function getResponseData$6(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(noop$5);
+    return response.text().catch(noop$7);
   } else {
     return response.arrayBuffer().catch(
       /* v8 ignore next -- @preserve */
@@ -32269,7 +32269,7 @@ function isPlainObject$a(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
-var noop$4 = () => "";
+var noop$6 = () => "";
 async function fetchWrapper$5(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -32371,7 +32371,7 @@ async function fetchWrapper$5(requestOptions) {
 async function getResponseData$5(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(noop$4);
+    return response.text().catch(noop$6);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$5(mimetype)) {
@@ -32383,7 +32383,7 @@ async function getResponseData$5(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(noop$4);
+    return response.text().catch(noop$6);
   } else {
     return response.arrayBuffer().catch(
       /* v8 ignore next -- @preserve */
@@ -32841,7 +32841,7 @@ function isPlainObject$8(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
-var noop$3 = () => "";
+var noop$5 = () => "";
 async function fetchWrapper$4(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -32943,7 +32943,7 @@ async function fetchWrapper$4(requestOptions) {
 async function getResponseData$4(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(noop$3);
+    return response.text().catch(noop$5);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$4(mimetype)) {
@@ -32955,7 +32955,7 @@ async function getResponseData$4(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(noop$3);
+    return response.text().catch(noop$5);
   } else {
     return response.arrayBuffer().catch(
       /* v8 ignore next -- @preserve */
@@ -33413,7 +33413,7 @@ function isPlainObject$6(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
-var noop$2 = () => "";
+var noop$4 = () => "";
 async function fetchWrapper$3(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -33515,7 +33515,7 @@ async function fetchWrapper$3(requestOptions) {
 async function getResponseData$3(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(noop$2);
+    return response.text().catch(noop$4);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$3(mimetype)) {
@@ -33527,7 +33527,7 @@ async function getResponseData$3(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(noop$2);
+    return response.text().catch(noop$4);
   } else {
     return response.arrayBuffer().catch(
       /* v8 ignore next -- @preserve */
@@ -33985,7 +33985,7 @@ function isPlainObject$4(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
-var noop$1 = () => "";
+var noop$3 = () => "";
 async function fetchWrapper$2(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -34087,7 +34087,7 @@ async function fetchWrapper$2(requestOptions) {
 async function getResponseData$2(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(noop$1);
+    return response.text().catch(noop$3);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$2(mimetype)) {
@@ -34099,7 +34099,7 @@ async function getResponseData$2(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(noop$1);
+    return response.text().catch(noop$3);
   } else {
     return response.arrayBuffer().catch(
       /* v8 ignore next -- @preserve */
@@ -36103,12 +36103,13 @@ let RequestError$1 = class RequestError extends Error {
    */
   response;
   constructor(message, statusCode, options) {
-    super(message);
+    super(message, { cause: options.cause });
     this.name = "HttpError";
     this.status = Number.parseInt(statusCode);
     if (Number.isNaN(this.status)) {
       this.status = 0;
     }
+    /* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
     if ("response" in options) {
       this.response = options.response;
     }
@@ -36129,7 +36130,7 @@ let RequestError$1 = class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$8 = "10.0.5";
+var VERSION$8 = "10.0.7";
 
 // pkg/dist-src/defaults.js
 var defaults_default$1 = {
@@ -36147,6 +36148,7 @@ function isPlainObject$2(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
+var noop$2 = () => "";
 async function fetchWrapper$1(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -36248,7 +36250,7 @@ async function fetchWrapper$1(requestOptions) {
 async function getResponseData$1(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$2);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse$1(mimetype)) {
@@ -36260,9 +36262,12 @@ async function getResponseData$1(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$2);
   } else {
-    return response.arrayBuffer().catch(() => new ArrayBuffer(0));
+    return response.arrayBuffer().catch(
+      /* v8 ignore next -- @preserve */
+      () => new ArrayBuffer(0)
+    );
   }
 }
 function isJSONResponse$1(mimetype) {
@@ -36309,6 +36314,8 @@ function withDefaults$3(oldEndpoint, newDefaults) {
 
 // pkg/dist-src/index.js
 var request$1 = withDefaults$3(endpoint$1, defaults_default$1);
+/* v8 ignore next -- @preserve */
+/* v8 ignore else -- @preserve */
 
 // pkg/dist-src/defaults.js
 
@@ -36668,12 +36675,13 @@ class RequestError extends Error {
    */
   response;
   constructor(message, statusCode, options) {
-    super(message);
+    super(message, { cause: options.cause });
     this.name = "HttpError";
     this.status = Number.parseInt(statusCode);
     if (Number.isNaN(this.status)) {
       this.status = 0;
     }
+    /* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
     if ("response" in options) {
       this.response = options.response;
     }
@@ -36694,7 +36702,7 @@ class RequestError extends Error {
 // pkg/dist-src/index.js
 
 // pkg/dist-src/version.js
-var VERSION$6 = "10.0.5";
+var VERSION$6 = "10.0.7";
 
 // pkg/dist-src/defaults.js
 var defaults_default = {
@@ -36712,6 +36720,7 @@ function isPlainObject(value) {
   const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
+var noop$1 = () => "";
 async function fetchWrapper(requestOptions) {
   const fetch = requestOptions.request?.fetch || globalThis.fetch;
   if (!fetch) {
@@ -36813,7 +36822,7 @@ async function fetchWrapper(requestOptions) {
 async function getResponseData(response) {
   const contentType = response.headers.get("content-type");
   if (!contentType) {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$1);
   }
   const mimetype = fastContentTypeParseExports.safeParse(contentType);
   if (isJSONResponse(mimetype)) {
@@ -36825,9 +36834,12 @@ async function getResponseData(response) {
       return text;
     }
   } else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") {
-    return response.text().catch(() => "");
+    return response.text().catch(noop$1);
   } else {
-    return response.arrayBuffer().catch(() => new ArrayBuffer(0));
+    return response.arrayBuffer().catch(
+      /* v8 ignore next -- @preserve */
+      () => new ArrayBuffer(0)
+    );
   }
 }
 function isJSONResponse(mimetype) {
@@ -36874,6 +36886,8 @@ function withDefaults$1(oldEndpoint, newDefaults) {
 
 // pkg/dist-src/index.js
 var request = withDefaults$1(endpoint, defaults_default);
+/* v8 ignore next -- @preserve */
+/* v8 ignore else -- @preserve */
 
 // pkg/dist-src/index.js
 
@@ -37045,7 +37059,7 @@ var createTokenAuth = function createTokenAuth2(token) {
   });
 };
 
-const VERSION$4 = "7.0.5";
+const VERSION$4 = "7.0.6";
 
 const noop = () => {
 };

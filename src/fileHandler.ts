@@ -91,3 +91,20 @@ export function getPubspecDartSdkVersion(pubspecPath: string): string {
     process.exit(1)
   }
 }
+
+export function getPubspecFile(pubspecPath: string): string {
+  try {
+    const pubspecContent = fs.readFileSync(pubspecPath, 'utf-8')
+    return pubspecContent
+  } catch (error) {
+    core.debug(
+      `Failed to read pubspec.yaml: ${error instanceof Error ? error.message : String(error)}`
+    )
+    core.error(
+      'Failed to read pubspec.yaml. Please ensure the path is correct.'
+    )
+    throw new Error(
+      `Failed to read pubspec.yaml: ${error instanceof Error ? error.message : String(error)}`
+    )
+  }
+}

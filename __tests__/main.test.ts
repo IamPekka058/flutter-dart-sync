@@ -16,7 +16,16 @@ jest.unstable_mockModule('@actions/core', () => ({
 }))
 jest.unstable_mockModule('../src/fileHandler.ts', () => ({
   getPubspecDartSdkVersion: jest.fn(),
-  updatePubspecDartSdkVersion: jest.fn()
+  updatePubspecDartSdkVersion: jest.fn(),
+  getPubspecFile: jest.fn()
+}))
+
+// Some modules import the file with a .js extension (e.g. './fileHandler.js')
+// when running under ESM. Mock that specifier as well so imports are intercepted.
+jest.unstable_mockModule('../src/fileHandler.js', () => ({
+  getPubspecDartSdkVersion: jest.fn(),
+  updatePubspecDartSdkVersion: jest.fn(),
+  getPubspecFile: jest.fn()
 }))
 
 // Dynamically import the modules after mocks are set up

@@ -1,7 +1,7 @@
 {
   "name": "flutter-dart-sync",
   "description": "Automatically updates the Dart SDK version in your pubspec.yaml to match the Dart version bundled with the installed Flutter SDK. Ensures Flutter and Dart versions are always compatible and prevents CI build errors due to version mismatches. ",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "IamPekka058 <59747867+IamPekka058@users.noreply.github.com>",
   "type": "module",
   "private": true,
@@ -37,7 +37,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.11.1"
+    "@actions/core": "^1.11.1",
+    "@octokit/auth-app": "^8.1.1"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.0",

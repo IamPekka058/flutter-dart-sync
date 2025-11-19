@@ -4,6 +4,7 @@ import {
   getPubspecDartSdkVersion,
   updatePubspecDartSdkVersion
 } from './fileHandler.js'
+import { commitWithApp } from './commitHandler.js'
 
 /**
  * Main entry point for the GitHub Action.
@@ -55,6 +56,13 @@ export async function run(): Promise<void> {
 
     updatePubspecDartSdkVersion(pubspec_path, flutterDartVersion)
     core.info('Dart SDK version synchronization complete.')
+
+    const shouldCommit =
+      core.getInput('commit_changes', { required: false }) === 'true'
+    if (shouldCommit) {
+      await commitWithApp(pubspec_path)
+    }
+
     return
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)

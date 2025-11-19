@@ -1,7 +1,7 @@
 name: example_project
 description: Ein Beispielprojekt für die Action
 environment:
-  sdk: 3.10.1
+  sdk: 3.1.0
 dependencies:
   flutter:
     sdk: flutter

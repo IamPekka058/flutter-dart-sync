@@ -39721,8 +39721,8 @@ async function commitChanges(pubspecPath) {
         ref: `heads/${getBranchName()}`
     });
     const commitData = await octokit.git.getCommit({
-        owner: process.env.GITHUB_REPOSITORY.split('/')[0],
-        repo: process.env.GITHUB_REPOSITORY.split('/')[1],
+        owner,
+        repo,
         commit_sha: refData.data.object.sha
     });
     const baseTree = commitData.data.tree.sha;
